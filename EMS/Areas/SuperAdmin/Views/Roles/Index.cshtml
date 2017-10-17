@@ -1,0 +1,47 @@
+﻿<div class="col-xs-12" ng-controller="ListCtlr">
+    <div class="box">
+        <div class="box-header">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="dataTables_length"><h3 class="box-title">Role List</h3></div>
+                </div>
+                <div class="col-sm-6 dataTables_length" style="text-align: right;">
+                    <div class="dataTables_length">@Html.ActionLink("New Role", "Create", new { controller = "Roles" }, new { @class = "btn btn-success" })</div>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                @Html.Partial("_TableSearchingPartial")
+                <div class="row">
+                    <div class="col-sm-12 table-responsive">
+                        <table class="table table-bordered table-hover dataTable ">
+                            <thead>
+                                <tr>
+                                    <th><a href="" ng-click="sort('Name')">Name</a></th>
+                                    <th><a href="">Description</a></th>
+                                    <th><a href="">Actions</a></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="role in roles">
+                                    <td>{{role.Name}}</td>
+                                    <td>{{role.Description}}</td>
+                                    <td>
+                                        <input type="button" class="btn btn-info" value="{{btnEditText}}" ng-click="redirect(role.Id)" />
+                                        <input type="button" class="btn btn-danger" value="{{btnDeleteText}}" ng-click="removeData(role.Id)" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @Html.Partial("_PagingPartial")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Areas/SuperAdmin/Scripts/Controllers/Roles.js"></script>
+}

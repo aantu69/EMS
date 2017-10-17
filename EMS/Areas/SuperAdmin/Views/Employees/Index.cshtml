@@ -1,0 +1,41 @@
+﻿<div class="col-xs-12" ng-app="employeeModule" ng-controller="EmployeeListCtlr">
+    <div class="box">
+        <div class="box-header">
+            <h3 class="box-title">Data Table With Full Features</h3>
+            @Html.ActionLink("New Employee", "Create", new { controller = "Employees" }, new { @class = "btn btn-success" })
+        </div>
+        <div class="box-body">
+            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                @Html.Partial("_TableSearchingPartial")
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-hover dataTable ">
+                            <thead>
+                                <tr>
+                                    <th><a href="" ng-click="sort('Name')">Name</a></th>
+                                    <th><a href="" ng-click="sort('Address')">Address</a></th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="employee in employees">
+                                    <td>{{employee.Name}}</td>
+                                    <td>{{employee.Address}}</td>
+                                    <td>
+                                        <input type="button" class="btn btn-info" value="{{btnEditText}}" ng-click="redirect(employee.ID)" />
+                                        <input type="button" class="btn btn-danger" value="{{btnDeleteText}}" ng-click="removeData(employee.ID)" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @Html.Partial("_PagingPartial")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Areas/SuperAdmin/Scripts/Controllers/Employees.js"></script>
+}

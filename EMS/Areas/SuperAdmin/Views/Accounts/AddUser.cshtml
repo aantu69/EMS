@@ -1,0 +1,108 @@
+﻿@{
+    ViewBag.Title = "Create User";
+}
+
+<div class="col-md-6" ng-app="AccountModule" ng-controller="UserAddCtlr">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">User Creation</h3>
+        </div>
+        <form class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="txtFName" class="col-sm-3 control-label">First Name</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtFName" placeholder="First Name" ng-model="FirstName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtLName" class="col-sm-3 control-label">Last Name</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtLName" placeholder="Last Name" ng-model="LastName">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+
+                    <div class="col-sm-9">
+                        <input type="email" class="form-control" id="txtEmail" placeholder="Email" ng-model="Email">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtPassword" class="col-sm-3 control-label">Password</label>
+
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="txtPassword" placeholder="Password" ng-model="Password">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtConfirmPassword" class="col-sm-3 control-label">Confirm Password</label>
+
+                    <div class="col-sm-9">
+                        <input type="password" class="form-control" id="ConfirmPassword" placeholder="ConfirmPassword" ng-model="ConfirmPassword">
+                    </div>
+                </div>
+
+                @*<div class="form-group">
+                    <label for="ddlRoles" class="col-sm-3 control-label">Roles</label>
+
+                    <div class="col-sm-9">
+                        <select ng-model="ddlRole" ng-options="role.Name for role in roles track by role.Id" class="form-control select2 select2-hidden-accessible">
+                            <option value="">Select Role</option>
+                        </select>
+                    </div>
+                </div>*@
+
+                <div class="form-group">
+                    <label for="ddlRoles" class="col-sm-3 control-label">Roles</label>
+                    <div class="col-sm-9">
+                        <label style="margin-right:15px; padding-top:5px;" ng-repeat="role in roles">
+                            <input class="icheckbox_square-red" id="{{role.Name}}" type="checkbox" value="{{role.Id}}" ng-checked="selectedRoles.indexOf(role.Id) > -1" ng-click="toggleSelection(role.Name)" />
+                            {{role.Name}}
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @*<div ng-repeat="role in roles">
+                        <div class="action-checkbox">
+                            <input id="{{role.Name}}" class="icheckbox_flat-orange" type="checkbox" value="{{role.Id}}" ng-checked="selectedRoles.indexOf(role.Id) > -1" ng-click="toggleSelection(role.Id)" />
+                            <label for="{{role.Name}}">{{role.Name}}</label>
+                            
+                        </div>
+                    </div>*@
+                    <span class="selected-item">
+                        Selected Items:
+                    <span>
+                    <div ng-repeat="age in selectedRoles" class="selected-item">
+                        {{age}}
+                    </div>
+                </div>
+
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink("Cancel", "Users", new { controller = "Accouts" }, new { @class = "btn btn-default" })
+                <input type="button" class="btn btn-info pull-right" value="Save" ng-click="addData()" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Areas/SuperAdmin/Scripts/Controllers/Accounts.js")
+
+    @*<script type="text/javascript">
+        $(function () {
+            $('input[type="checkbox"].minimal-red').iCheck({
+                checkboxClass: 'icheckbox_minimal-blue',
+                radioClass: 'iradio_minimal-blue'
+            })
+        })
+    </script>*@
+}

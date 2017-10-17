@@ -1,0 +1,23 @@
+﻿<div class="row">
+    <div class="col-sm-5"></div>
+    <div class="col-sm-7">
+        <div class="dataTables_paginate paging_simple_numbers">
+            <div class="pagination">
+                <a ng-if="totalPagesLessEqualMaxPages" ng-repeat="n in range(1, pagingInfo.totalPages)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{n}}</a>
+                <a ng-if="pagesAfterLessEqual4" ng-repeat="n in range(1, 1)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{n}}</a>
+                <a ng-if="pagesAfterLessEqual4" ng-repeat="n in range(pageSubsetAfter, pageSubsetAfter)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">...</a>
+                <a ng-if="pagesAfterLessEqual4" ng-repeat="n in range((pagingInfo.totalPages - maxPages + 3), pagingInfo.totalPages)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{n}}</a>
+
+                <a ng-if="pagesBeforeLessEqual4" ng-repeat="n in range(1, maxPages - 2)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{n}}</a>
+                <a ng-if="pagesBeforeLessEqual4" ng-repeat="n in range(pageSubsetBefore, pageSubsetBefore)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">...</a>
+                <a ng-if="pagesBeforeLessEqual4" ng-repeat="n in range(pagingInfo.totalPages, pagingInfo.totalPages)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{n}}</a>
+
+                <a ng-if="pagesAfterBeforeGreater4" ng-repeat="n in range(1, 1)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{n}}</a>
+                <a ng-if="pagesAfterBeforeGreater4" ng-repeat="n in range(pageSubsetAfter1, pageSubsetAfter1)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{pageSubsetAfter1 == pagingInfo.page - 4 ? n : "..."}}</a>
+                <a ng-if="pagesAfterBeforeGreater4" ng-repeat="n in range(pagingInfo.page - 3, pagingInfo.page + 3)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{n}}</a>
+                <a ng-if="pagesAfterBeforeGreater4" ng-repeat="n in range(pageSubsetAfter2, pageSubsetAfter2)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{pageSubsetAfter2 == pagingInfo.page + 4 ? n : "..."}}</a>
+                <a ng-if="pagesAfterBeforeGreater4" ng-repeat="n in range(pagingInfo.totalPages, pagingInfo.totalPages)" class="{{ n == pagingInfo.page ? 'current' : ''}}" href="" ng-click="selectPage(n)">{{n}}</a>
+            </div>
+        </div>
+    </div>
+</div>

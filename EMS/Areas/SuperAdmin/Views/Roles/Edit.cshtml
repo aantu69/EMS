@@ -1,0 +1,44 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="col-md-6" ng-controller="EditCtlr">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Role Editing</h3>
+        </div>
+        <form class="form-horizontal" name="roleForm">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="txtName" class="col-sm-2 control-label">Role Name</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="Name" ng-required="true" class="form-control" id="txtName" placeholder="Name" ng-model="Name">
+                    </div>
+                    <div class="col-sm-3" ng-show="roleForm.Name.$touched && roleForm.Name.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Role Name</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtDescription" class="col-sm-2 control-label">Description</label>
+
+                    <div class="col-sm-7">
+                        <textarea name="Description" ng-required="true" class="form-control" id="txtDescription" placeholder="Description" ng-model="Description">{{Description}}</textarea>
+                    </div>
+                    <div class="col-sm-3" ng-show="roleForm.Description.$touched && roleForm.Description.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Description</small>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink("Cancel", "Index", new { controller = "Roles" }, new { @class = "btn btn-default" })
+                <input type="button" class="btn btn-info pull-right" value="{{btnUpdateText}}" ng-click="updateData()" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Areas/SuperAdmin/Scripts/Controllers/Roles.js")
+}

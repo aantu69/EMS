@@ -1,0 +1,21 @@
+﻿<div class="row">
+    <div class="col-sm-6">
+        <div class="dataTables_length" id="example1_length">
+            Show:
+            <select ng-model="pagingInfo.pageSize" ng-options="data for data in pageSizeOption" ng-change="filterPage(pagingInfo.pageSize)" name="example1_length" aria-controls="example1" class="form-control input-sm">
+                @*<option ng-selected="pagingInfo.pageSize == 5" value="5">5</option>
+                <option ng-selected="pagingInfo.pageSize == 10" value="10">10</option>*@
+            </select>
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div id="example1_filter" class="dataTables_filter">
+            <form class="form-inline" ng-submit="search()" role="form">
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" ng-model="pagingInfo.search" ng-change="search()" placeholder="Search...">
+                    <button type="submit" class="btn btn-info btn-sm"><strong>Search</strong></button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

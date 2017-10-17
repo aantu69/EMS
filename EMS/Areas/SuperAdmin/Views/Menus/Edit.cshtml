@@ -1,0 +1,85 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="col-md-6" ng-controller="EditCtlr">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Menu Editing</h3>
+        </div>
+        <form class="form-horizontal" name="menuForm">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="txtName" class="col-sm-2 control-label">Name</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="Name" ng-required="true" class="form-control" id="txtName" placeholder="Name" ng-model="Name">
+                    </div>
+                    <div class="col-sm-3" ng-show="menuForm.Name.$dirty && menuForm.Name.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Name</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtArea" class="col-sm-2 control-label">Area</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="Area" ng-required="true" class="form-control" id="txtArea" placeholder="Area" ng-model="Area">
+                    </div>
+                    <div class="col-sm-3" ng-show="menuForm.Area.$dirty && menuForm.Area.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Area</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtControllerName" class="col-sm-2 control-label">Controller</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="ControllerName" ng-required="true" class="form-control" id="txtControllerName" placeholder="Controller Name" ng-model="ControllerName">
+                    </div>
+                    <div class="col-sm-3" ng-show="menuForm.ControllerName.$dirty && menuForm.ControllerName.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Controller Name</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtActionName" class="col-sm-2 control-label">Action</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="ActionName" ng-required="true" class="form-control" id="txtActionName" placeholder="Action Name" ng-model="ActionName">
+                    </div>
+                    <div class="col-sm-3" ng-show="menuForm.ActionName.$dirty && menuForm.ActionName.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Action Name</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="rbtnIsActive" class="col-sm-2 control-label">IsActive</label>
+
+                    <div class="col-sm-7">
+                        <input type="radio" name="IsActive" id="rbtnIsActive" ng-model="IsActive" class="form-control" />
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtOrder" class="col-sm-2 control-label">Order</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="Order" ng-required="true" class="form-control" id="txtOrder" placeholder="Order" ng-model="Order">
+                    </div>
+                    <div class="col-sm-3" ng-show="menuForm.Order.$dirty && menuForm.Order.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Order</small>
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink("Cancel", "Index", new { controller = "Menus" }, new { @class = "btn btn-default" })
+                <input type="button" class="btn btn-info pull-right" value="{{btnUpdateText}}" ng-click="updateData()" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Areas/SuperAdmin/Scripts/Controllers/Menus.js")
+}
