@@ -10,64 +10,66 @@
         <form class="form-horizontal">
             <div class="box-body">
                 <div class="form-group">
-                    <label for="txtFName" class="col-sm-3 control-label">First Name</label>
+                    <label for="txtFName" class="col-sm-2 control-label">First Name</label>
 
-                    <div class="col-sm-9">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" id="txtFName" placeholder="First Name" ng-model="FirstName">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtLName" class="col-sm-3 control-label">Last Name</label>
+                    <label for="txtLName" class="col-sm-2 control-label">Last Name</label>
 
-                    <div class="col-sm-9">
+                    <div class="col-sm-7">
                         <input type="text" class="form-control" id="txtLName" placeholder="Last Name" ng-model="LastName">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtEmail" class="col-sm-3 control-label">Email</label>
+                    <label for="txtEmail" class="col-sm-2 control-label">Email</label>
 
-                    <div class="col-sm-9">
+                    <div class="col-sm-7">
                         <input type="email" class="form-control" id="txtEmail" placeholder="Email" ng-model="Email">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtPassword" class="col-sm-3 control-label">Password</label>
+                    <label for="txtPassword" class="col-sm-2 control-label">Password</label>
 
-                    <div class="col-sm-9">
+                    <div class="col-sm-7">
                         <input type="password" class="form-control" id="txtPassword" placeholder="Password" ng-model="Password">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="txtConfirmPassword" class="col-sm-3 control-label">Confirm Password</label>
+                    <label for="txtConfirmPassword" class="col-sm-2 control-label">Confirm Password</label>
 
-                    <div class="col-sm-9">
+                    <div class="col-sm-7">
                         <input type="password" class="form-control" id="ConfirmPassword" placeholder="ConfirmPassword" ng-model="ConfirmPassword">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="ddlRoles" class="col-sm-3 control-label">Roles</label>
-                    <div class="col-sm-9">
-                        <label style="margin-right:15px; padding-top:5px;" ng-repeat="role in roles">
-                            <input class="icheckbox_square-red" id="{{role.Name}}" type="checkbox" value="{{role.Id}}" ng-checked="selectedRoles.indexOf(role.Id) > -1" ng-click="toggleSelection(role.Name)" />
+                    <label for="ddlInstitute" class="col-sm-2 control-label">Institute</label>
+
+                    <div class="col-sm-7">
+                        <select class="form-control select2" ng-model="InstId" select2 >
+                            <option value="">All</option>
+                            <option ng-repeat="inst in insts" value="{{inst.Id}}">{{inst.Name}}</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="ddlRoles" class="col-sm-2 control-label">Roles</label>
+                    <div class="col-sm-7">
+                        <label ng-repeat="role in roles">
+                            <input icheck type="checkbox" ng-model="role.Id" ng-checked="selectedRoles.indexOf(role.Name) > -1" ng-change="toggleSelection(role.Name)" />
                             {{role.Name}}
                         </label>
+                        <pre style="margin: 5px; padding: 5px;">{{selectedRoles}}</pre>
                     </div>
                 </div>
-
-                <div class="form-group">                
-                    <span class="selected-item">
-                        Selected Items:
-                    </span>
-                    <div ng-repeat="name in selectedRoles" class="selected-item">
-                        {{name}}
-                    </div>
-                </div>
-
             </div>
             <div class="box-footer">
                 @Html.ActionLink("Cancel", "Index", new { controller = "Users" }, new { @class = "btn btn-default" })

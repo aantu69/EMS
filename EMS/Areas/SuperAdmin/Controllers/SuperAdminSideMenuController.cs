@@ -17,7 +17,7 @@ namespace EMS.Areas.SuperAdmin.Controllers
         public JsonResult GetDatas()
         {
             ApplicationDbContext db = new ApplicationDbContext();
-            var menus = db.Menus.Where(m => m.ActionName == "Index").ToList();
+            var menus = db.Menus.Where(m => m.ActionName == "Index" && m.Area == "SuperAdmin").OrderBy(m => m.Order).ToList();
             var result = new { Menus = menus };
             return Json(result, JsonRequestBehavior.AllowGet);
             

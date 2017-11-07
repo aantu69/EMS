@@ -23,7 +23,7 @@
                                     <th><a href="" ng-click="sort('Area')">Area</a></th>
                                     <th><a href="" ng-click="sort('ControllerName')">Controller</a></th>
                                     <th><a href="" ng-click="sort('ActionName')">Action</a></th>
-                                    <th><a href="" ng-click="sort('Isactive')">IsActive</a></th>
+                                    <th><a href="" ng-click="sort('IsActive')">IsActive</a></th>
                                     <th><a href="" ng-click="sort('Order')">Order</a></th>
                                     <th>Actions</th>
                                 </tr>
@@ -34,11 +34,15 @@
                                     <td>{{menu.Area}}</td>
                                     <td>{{menu.ControllerName}}</td>
                                     <td>{{menu.ActionName}}</td>
-                                    <td>{{menu.Isactive}}</td>
+                                    <td>
+                                        <label style="margin-right:15px; padding-top:5px;">
+                                            <input class="icheckbox_square-red" type="checkbox" name="IsActive" ng-model="menu.IsActive" disabled />
+                                        </label>
+                                    </td>
                                     <td>{{menu.Order}}</td>
                                     <td>
-                                        <input type="button" class="btn btn-info" value="{{btnEditText}}" ng-click="redirect(menu.ID)" />
-                                        <input type="button" class="btn btn-danger" value="{{btnDeleteText}}" ng-click="removeData(menu.ID)" />
+                                        <input type="button" class="btn btn-info" value="{{btnEditText}}" ng-click="redirect(menu.Id)" />
+                                        <input type="button" class="btn btn-danger" value="{{btnDeleteText}}" ng-click="removeData(menu.Id)" />
                                     </td>
                                 </tr>
                             </tbody>

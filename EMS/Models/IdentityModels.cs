@@ -14,7 +14,7 @@ namespace EMS.Models
     {
         public String FirstName { get; set; }
         public String LastName { get; set; }
-        public int InstituteId { get; set; }
+        public int InstId { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
@@ -29,14 +29,15 @@ namespace EMS.Models
 
     public class ApplicationRole : IdentityRole
     {
-        public ApplicationRole()
-        {
-            Menu = new HashSet<Menu>();
-        }
-        //public ApplicationRole() : base() { }
+        //public ApplicationRole()
+        //{
+        //    Menu = new HashSet<Menu>();
+        //}
+        public ApplicationRole() : base() { }
         public ApplicationRole(string name) : base(name) { }
         public string Description { get; set; }
-        public virtual ICollection<Menu> Menu { get; set; }
+        //public int InstId { get; set; }
+        //public virtual ICollection<ApplicationRoleMenu> ApplicationRoleMenus { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
@@ -48,6 +49,7 @@ namespace EMS.Models
 
         //public virtual DbSet<Menu> Menus { get; set; }
         public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.Menu> Menus { get; set; }
+        public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.ApplicationRoleMenu> ApplicationRoleMenus { get; set; }
 
         public static ApplicationDbContext Create()
         {

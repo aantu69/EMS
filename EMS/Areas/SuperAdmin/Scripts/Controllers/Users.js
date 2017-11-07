@@ -33,6 +33,10 @@ app.factory("EMSService", ['$http', '$window', function ($http, $window) {
 
             })
         },
+        getInsts: function () {
+            var url = '/Users/GetInsts';
+            return $http.get(url);
+        },
         getDatas: function () {
             var url = '/Users/GetRoles';
             return $http.get(url);
@@ -52,7 +56,7 @@ app.factory("EMSService", ['$http', '$window', function ($http, $window) {
             var url = '/Users/GetSelectedRoles';
             var currentId = this.getEditId();
             if (currentId != null) {
-                return $http.get(url, { params: { id: currentId } });
+                return $http.get(url, { params: { Id: currentId } });
             }
         },
         getEditId: function () {
@@ -171,28 +175,29 @@ app.controller('ListCtlr', ['$scope', '$http', '$window', 'EMSService', function
 app.controller('AddCtlr', ['$scope', '$http', 'EMSService', function ($scope, $http, EMSService) {
     $scope.btnSaveText = "Save";
     $scope.showMessage = false;
+    EMSService.getInsts().then(function (result) {
+        $scope.insts = result.data;
+    });
     EMSService.getDatas().then(function (result) {
         $scope.roles = result.data;
     });
     $scope.selectedRoles = [];
     $scope.toggleSelection = function toggleSelection(selectedId) {
         var idx = $scope.selectedRoles.indexOf(selectedId);
-        if (idx > -1) {//is currently selected
+        if (idx > -1) {
             $scope.selectedRoles.splice(idx, 1);
         }
-        else {//is newly selected
+        else {
             $scope.selectedRoles.push(selectedId);
         }
     };
-
 
     $scope.addData = function () {
         var user = {};
         user.Email = $scope.Email;
         user.FirstName = $scope.FirstName;
         user.LastName = $scope.LastName;
-        user.InstituteId = 0;
-        //user.UserRoles = $scope.ddlRole.Name;
+        user.InstId = ($scope.InstId == "") ? 0 : $scope.InstId;
         user.Password = $scope.Password;
         var selectedRoles = $scope.selectedRoles;
         EMSService.createData(user, selectedRoles);
@@ -207,10 +212,14 @@ app.controller('EditCtlr', ['$scope', '$http', 'EMSService', function ($scope, $
         $scope.Email = result.data.Email;
         $scope.FirstName = result.data.FirstName;
         $scope.LastName = result.data.LastName;
-        //alert(result.data.Name);
+        $scope.InstId = (result.data.InstId == 0) ? "" : result.data.InstId.toString();
         //alert(result.data.toSource());
     }, function (error) {
         alert('Error');
+    });
+
+    EMSService.getInsts().then(function (result) {
+        $scope.insts = result.data;
     });
 
     EMSService.getDatas().then(function (result) {
@@ -218,15 +227,16 @@ app.controller('EditCtlr', ['$scope', '$http', 'EMSService', function ($scope, $
     });
 
     EMSService.getSelectedRoles().then(function (result) {
+        //alert(result.data.toSource());
         $scope.selectedRoles = result.data;
     });
-    //$scope.selectedRoles = [];
+
     $scope.toggleSelection = function toggleSelection(selectedId) {
         var idx = $scope.selectedRoles.indexOf(selectedId);
-        if (idx > -1) {//is currently selected
+        if (idx > -1) {
             $scope.selectedRoles.splice(idx, 1);
         }
-        else {//is newly selected
+        else {
             $scope.selectedRoles.push(selectedId);
         }
     };
@@ -237,7 +247,7 @@ app.controller('EditCtlr', ['$scope', '$http', 'EMSService', function ($scope, $
         user.Email = $scope.Email;
         user.FirstName = $scope.FirstName;
         user.LastName = $scope.LastName;
-        user.InstituteId = 0;
+        user.InstId = ($scope.InstId == "") ? 0 : $scope.InstId;
         var selectedRoles = $scope.selectedRoles;
         EMSService.updateData(user, selectedRoles);
         $scope.btnUpdateText = "Update";

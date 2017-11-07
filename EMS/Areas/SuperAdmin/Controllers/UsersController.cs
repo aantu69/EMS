@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace EMS.Areas.SuperAdmin.Controllers
 {
+    [DynamicRoleAuthorize]
     public class UsersController : Controller
     {
         public ActionResult Index()
@@ -24,7 +25,6 @@ namespace EMS.Areas.SuperAdmin.Controllers
         {
             return View();
         }
-
         public JsonResult GetDatas(int page = 1, int pageSize = 10, string sortBy = "UserName", bool isAsc = true, string search = null)
         {
             ApplicationDbContext db = new ApplicationDbContext();
@@ -94,7 +94,6 @@ namespace EMS.Areas.SuperAdmin.Controllers
 
 
         }
-
         public JsonResult GetRoles()
         {
             ApplicationDbContext db = new ApplicationDbContext();
@@ -110,17 +109,29 @@ namespace EMS.Areas.SuperAdmin.Controllers
 
             }
         }
+        public JsonResult GetInsts()
+        {
+            EMSContext db = new EMSContext();
+            var insts = db.Institutes.ToList();
+            if (insts != null)
+            {
+                return Json(insts, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("No Result Found.", JsonRequestBehavior.AllowGet);
 
-
-        public JsonResult GetData(string id)
+            }
+        }
+        public JsonResult GetData(string Id)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            if (id == null)
+            if (Id == null)
             {
                 return Json(new { status = new HttpStatusCodeResult(HttpStatusCode.BadRequest) });
             }
-            var result = UserManager.FindById(id);
+            var result = UserManager.FindById(Id);
             if (result != null)
             {
                 return Json(result, JsonRequestBehavior.AllowGet);
@@ -132,17 +143,16 @@ namespace EMS.Areas.SuperAdmin.Controllers
             }
             
         }
-
-        public JsonResult GetSelectedRoles(string id)
+        public JsonResult GetSelectedRoles(string Id)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
-            if (id == null)
+            if (Id == null)
             {
                 return Json(new { status = new HttpStatusCodeResult(HttpStatusCode.BadRequest) });
             }
 
-            var result = UserManager.GetRoles(id).ToList().ToArray();
+            var result = UserManager.GetRoles(Id).ToList().ToArray();
 
             if (result != null)
             {
@@ -155,8 +165,6 @@ namespace EMS.Areas.SuperAdmin.Controllers
             }
 
         }
-
-
         public JsonResult CreateData(RegisterViewModel model, string[] selectedRoles)
         {
             ApplicationDbContext db = new ApplicationDbContext();
@@ -173,7 +181,7 @@ namespace EMS.Areas.SuperAdmin.Controllers
                 user.Email = model.Email;
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-                user.InstituteId = model.InstituteId;
+                user.InstId = model.InstId;
                 var result = UserManager.Create(user, model.Password);
 
                 if (result.Succeeded)
@@ -200,7 +208,6 @@ namespace EMS.Areas.SuperAdmin.Controllers
 
             return Json(retn, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult UpdateData(RegisterViewModel model, string[] selectedRoles)
         {
             ApplicationDbContext db = new ApplicationDbContext();
@@ -218,7 +225,7 @@ namespace EMS.Areas.SuperAdmin.Controllers
                 currentUser.Id = model.Id;
                 currentUser.FirstName = model.FirstName;
                 currentUser.LastName = model.LastName;
-                currentUser.InstituteId = model.InstituteId;
+                currentUser.InstId = model.InstId;
                 var result = UserManager.Update(currentUser);
 
                 if (result.Succeeded)
@@ -246,7 +253,6 @@ namespace EMS.Areas.SuperAdmin.Controllers
 
             return Json(retn, JsonRequestBehavior.AllowGet);
         }
-
         public JsonResult DeleteData(string Id)
         {
             ApplicationDbContext db = new ApplicationDbContext();

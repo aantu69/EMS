@@ -57,7 +57,9 @@
                     <label for="rbtnIsActive" class="col-sm-2 control-label">IsActive</label>
 
                     <div class="col-sm-7">
-                        <input type="radio" name="IsActive" id="rbtnIsActive" ng-model="IsActive" class="form-control" />
+                        <label style="margin-right:15px; padding-top:5px;">
+                            <input class="icheckbox_square-red" type="checkbox" name="IsActive" ng-model="IsActive"/>           
+                        </label>  
                     </div>
                 </div>
 
@@ -65,13 +67,12 @@
                     <label for="txtOrder" class="col-sm-2 control-label">Order</label>
 
                     <div class="col-sm-7">
-                        <input type="text" name="Order" ng-required="true" class="form-control" id="txtOrder" placeholder="Order" ng-model="Order">
+                        <input type="number" name="Order" ng-required="true" class="form-control" id="txtOrder" placeholder="Order" ng-model="Order">
                     </div>
                     <div class="col-sm-3" ng-show="menuForm.Order.$dirty && menuForm.Order.$invalid">
                         <small style="color:red; display:block; text-align:center;">Enter Order</small>
                     </div>
-                </div>
-                
+                </div>                
             </div>
             <div class="box-footer">
                 @Html.ActionLink("Cancel", "Index", new { controller = "Menus" }, new { @class= "btn btn-default" })

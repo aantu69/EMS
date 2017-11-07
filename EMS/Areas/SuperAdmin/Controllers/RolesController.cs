@@ -9,9 +9,11 @@ using System.Web;
 using System.Web.Mvc;
 using System.Collections.Generic;
 using System;
+using EMS.Areas.SuperAdmin.Models;
 
 namespace EMS.Areas.SuperAdmin.Controllers
 {
+    [DynamicRoleAuthorize]
     public class RolesController : Controller
     {
         
@@ -88,7 +90,37 @@ namespace EMS.Areas.SuperAdmin.Controllers
             return Json(result, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult CreateData(RoleViewModel model)
+        public JsonResult GetSelectedMenus(string Id)
+        {
+            ApplicationDbContext db = new ApplicationDbContext();
+            //var UserManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+            if (Id == null)
+            {
+                return Json(new { status = new HttpStatusCodeResult(HttpStatusCode.BadRequest) });
+            }
+
+            var result = (from a in db.ApplicationRoleMenus
+                          where (a.ApplicationRoleId == Id)
+                          select a.MenuId).ToList();
+
+            //var result = db.ApplicationRoleMenus.Where(e => e.ApplicationRoleId == id).ToList().ToArray();
+
+            //var result = UserManager.GetRoles(id).ToList().ToArray();
+
+            if (result != null)
+            {
+                return Json(result.ToArray(), JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json("No Result Found.", JsonRequestBehavior.AllowGet);
+
+            }
+
+        }
+
+
+        public JsonResult CreateData(RoleViewModel model, string[] selectedMenus)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             var RoleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(db));
@@ -100,10 +132,26 @@ namespace EMS.Areas.SuperAdmin.Controllers
                     var role = new ApplicationRole();
                     role.Name = model.Name;
                     role.Description = model.Description;
+                    //role.InstId = model.InstId;
                     var result = RoleManager.Create(role);
+
                     if (result.Succeeded)
                     {
-                        retn = "The role created.";
+                        if (selectedMenus != null)
+                        {
+                            foreach (string menu in selectedMenus)
+                            {
+                                int menuId = Convert.ToInt32(menu);
+                                var applicationRoleMenu = new ApplicationRoleMenu();
+                                applicationRoleMenu.ApplicationRoleId = role.Id;
+                                applicationRoleMenu.MenuId = menuId;
+                                db.ApplicationRoleMenus.Add(applicationRoleMenu);
+                                
+                            }
+                            db.SaveChanges();
+                            retn = "The role created.";
+                        }
+
                     }
                     else
                     {
@@ -121,7 +169,7 @@ namespace EMS.Areas.SuperAdmin.Controllers
             return Json(retn, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult UpdateData(RoleViewModel model)
+        public JsonResult UpdateData(RoleViewModel model, string[] selectedMenus)
         {
             ApplicationDbContext db = new ApplicationDbContext();
             var RoleManager = new RoleManager<ApplicationRole>(new RoleStore<ApplicationRole>(db));
@@ -137,10 +185,26 @@ namespace EMS.Areas.SuperAdmin.Controllers
                         CurrentRole.Id = model.Id;
                         CurrentRole.Name = model.Name;
                         CurrentRole.Description = model.Description;
+                        //CurrentRole.InstId = model.InstId;
                         var result = RoleManager.Update(CurrentRole);
                         if (result.Succeeded)
                         {
-                            retn = "The role created.";
+                            db.ApplicationRoleMenus.RemoveRange(db.ApplicationRoleMenus.Where(c => c.ApplicationRoleId == model.Id));
+                            if (selectedMenus != null)
+                            {
+                                foreach (string menu in selectedMenus)
+                                {
+                                    int menuId = Convert.ToInt32(menu);
+                                    var applicationRoleMenu = new ApplicationRoleMenu();
+                                    applicationRoleMenu.ApplicationRoleId = model.Id;
+                                    applicationRoleMenu.MenuId = menuId;
+                                    db.ApplicationRoleMenus.Add(applicationRoleMenu);
+
+                                }
+                                db.SaveChanges();
+                            }
+
+                            retn = "The role updated.";
                         }
                         else
                         {
@@ -180,6 +244,8 @@ namespace EMS.Areas.SuperAdmin.Controllers
             var result = RoleManager.Delete(RoleManager.FindByName(currentRole.Name));
             if (result.Succeeded)
             {
+                db.ApplicationRoleMenus.RemoveRange(db.ApplicationRoleMenus.Where(c => c.ApplicationRoleId == Id));
+                db.SaveChanges();
                 retn = "The role deleted.";
             }
             else

@@ -2,28 +2,32 @@
 
 app.factory("EMSService", ['$http', '$window', function ($http, $window) {
     return {
-        createData: function (Role) {
+        createData: function (ViewModel, selectedMenus) {
+            var url = '/Roles/CreateData';
+            var redirect = '/SuperAdmin/Roles/Index';
             $http({
-                url: "/Roles/CreateData",
+                url: url,
                 method: "POST",
-                data: Role
+                data: { 'model': ViewModel, 'selectedMenus': selectedMenus },
             }).then(function (response) {
                 if (response !== 'undefined' && typeof (response) == 'object') {
-                    window.location.href = '/SuperAdmin/Roles/Index';
+                    window.location.href = redirect;
                 }
             }, function (response) {
 
             })
         },
-        updateData: function (Role) {
-            Role.Id = this.getEditId();
+        updateData: function (ViewModel, selectedMenus) {
+            var url = '/Roles/UpdateData';
+            var redirect = '/SuperAdmin/Roles/Index';
+            ViewModel.Id = this.getEditId();
             $http({
-                url: "/Roles/UpdateData",
+                url: url,
                 method: "POST",
-                data: Role
+                data: { 'model': ViewModel, 'selectedMenus': selectedMenus },
             }).then(function (response) {
                 if (response !== 'undefined' && typeof (response) == 'object') {
-                    window.location.href = '/SuperAdmin/Roles/Index';
+                    window.location.href = redirect;
                 }
             }, function (response) {
 
@@ -40,6 +44,13 @@ app.factory("EMSService", ['$http', '$window', function ($http, $window) {
         },
         getMenus: function () {
             return $http.get('/Roles/GetMenus');
+        },
+        getSelectedMenus: function () {
+            var url = '/Roles/GetSelectedMenus';
+            var currentId = this.getEditId();
+            if (currentId != null) {
+                return $http.get(url, { params: { id: currentId } });
+            }
         },
         getEditId: function () {
             var absoluteUrlPath = $window.location.href;
@@ -160,18 +171,51 @@ app.controller('AddCtlr', ['$scope', '$http', 'EMSService', function ($scope, $h
         $scope.menus = result.data.Menus;
     }, function (error) {
         alert('Error');
-    };    
+    });  
+
+    $scope.selectedMenus = [];
+    $scope.toggleSelection = function toggleSelection(selectedId) {
+        var idx = $scope.selectedMenus.indexOf(selectedId);
+        if (idx > -1) {//is currently selected
+            $scope.selectedMenus.splice(idx, 1);
+        }
+        else {//is newly selected
+            $scope.selectedMenus.push(selectedId);
+        }
+    };
+
     $scope.addData = function () {
         var role = {};
         role.Name = $scope.Name;
         role.Description = $scope.Description;
-        EMSService.createData(role);
+        var selectedMenus = $scope.selectedMenus;
+        EMSService.createData(role, selectedMenus);
+        //EMSService.createData(role);
     };
 }]);
 
 app.controller('EditCtlr', ['$scope', '$http', 'EMSService', function ($scope, $http, EMSService) {
     $scope.btnUpdateText = "Update";
     $scope.showMessage = false;
+    EMSService.getMenus().then(function (result) {
+        $scope.menus = result.data.Menus;
+    }, function (error) {
+        alert('Error');
+    });
+
+    EMSService.getSelectedMenus().then(function (result) {
+        $scope.selectedMenus = result.data;
+    });
+    $scope.toggleSelection = function toggleSelection(selectedId) {
+        var idx = $scope.selectedMenus.indexOf(selectedId);
+        if (idx > -1) {//is currently selected
+            $scope.selectedMenus.splice(idx, 1);
+        }
+        else {//is newly selected
+            $scope.selectedMenus.push(selectedId);
+        }
+    };
+
     EMSService.getData().then(function (result) {
         $scope.Name = result.data.Name;
         $scope.Description = result.data.Description;
@@ -185,9 +229,10 @@ app.controller('EditCtlr', ['$scope', '$http', 'EMSService', function ($scope, $
     $scope.updateData = function () {
         $scope.btnUpdateText = "Updating...";
         var role = {};
-        role["Name"] = $scope.Name;
-        role["Description"] = $scope.Description;
-        EMSService.updateData(role);
+        role.Name = $scope.Name;
+        role.Description = $scope.Description;
+        var selectedMenus = $scope.selectedMenus;
+        EMSService.updateData(role, selectedMenus);
         $scope.btnUpdateText = "Update";
     };
 }]);

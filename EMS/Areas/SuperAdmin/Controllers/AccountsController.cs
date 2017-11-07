@@ -154,7 +154,7 @@ namespace EMS.Areas.SuperAdmin.Controllers
                 user.Email = model.Email;
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-                user.InstituteId = model.InstituteId;
+                user.InstId = model.InstId;
                 var result = UserManager.Create(user, model.Password);
 
                 if (result.Succeeded)
@@ -223,7 +223,7 @@ namespace EMS.Areas.SuperAdmin.Controllers
                 //user.Email = model.Email;
                 user.FirstName = model.FirstName;
                 user.LastName = model.LastName;
-                user.InstituteId = model.InstituteId;
+                user.InstId = model.InstId;
                 var result = UserManager.Update(user);
 
                 if (result.Succeeded)

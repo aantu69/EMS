@@ -1,0 +1,47 @@
+﻿<div class="col-xs-12" ng-controller="ListCtlr">
+    <div class="box">
+        <div class="box-header">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="dataTables_length"><h3 class="box-title">Shift List</h3></div>
+                </div>
+                <div class="col-sm-6 dataTables_length" style="text-align: right;">
+                    <div class="dataTables_length">@Html.ActionLink("{{btnNewText}}", "Create", new { controller = "Shifts" }, new { @class = "btn btn-success" })</div>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                @Html.Partial("_TableSearchingPartial")
+                <div class="row">
+                    <div class="col-sm-12">
+                        <table class="table table-bordered table-hover dataTable ">
+                            <thead>
+                                <tr>
+                                    <th><a href="" ng-click="sort('MediumName')">Medium Name</a></th>
+                                    <th><a href="" ng-click="sort('ShiftName')">Shift Name</a></th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="shift in shifts">
+                                    <td>{{shift.MediumName}}</td>
+                                    <td>{{shift.ShiftName}}</td>
+                                    <td>
+                                        <input type="button" class="btn btn-info" value="{{btnEditText}}" ng-click="redirect(shift.Id)" />
+                                        <input type="button" class="btn btn-danger" value="{{btnDeleteText}}" ng-click="removeData(shift.Id)" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @Html.Partial("_PagingPartial")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Areas/Dashboard/Scripts/Controllers/Shifts.js"></script>
+}

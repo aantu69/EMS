@@ -54,10 +54,24 @@ namespace EMS.Logic
             var currentUser = userManager.FindById(currentUserId);
             if (currentUser != null)
             {
-                instituteId = currentUser.InstituteId;
+                instituteId = currentUser.InstId;
             }
 
             return instituteId;
         }
+        //public static string CurrentUserInstituteId()
+        //{
+        //    string instituteId = "";
+        //    ApplicationDbContext db = new ApplicationDbContext();
+        //    UserManager<ApplicationUser> userManager = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(db));
+        //    var currentUserId = HttpContext.Current.User.Identity.GetUserId();
+        //    var currentUser = userManager.FindById(currentUserId);
+        //    if (currentUser != null)
+        //    {
+        //        instituteId = currentUser.InstId.ToString();
+        //    }
+
+        //    return instituteId;
+        //}
     }
 }

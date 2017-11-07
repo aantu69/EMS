@@ -1,0 +1,67 @@
+﻿<div class="col-xs-12" ng-controller="ListCtlr">
+    <div class="box">
+        <div class="box-header">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="dataTables_length"><h3 class="box-title">Institute List</h3></div>
+                    <div class="dataTables_length"><h3 class="box-title">{{message}}</h3></div>
+                </div>
+                <div class="col-sm-6 dataTables_length" style="text-align: right;">
+                    <div class="dataTables_length">@Html.ActionLink("New Institute", "Create", new { controller = "Institutes" }, new { @class = "btn btn-success" })</div>
+                </div>
+            </div>
+        </div>
+        <div class="box-body">
+            <div id="example1_wrapper" class="dataTables_wrapper form-inline dt-bootstrap">
+                @Html.Partial("_TableSearchingPartial")
+                <div class="row">
+                    <div class="col-sm-12 table-responsive">
+                        <table class="table table-bordered table-hover dataTable ">
+                            <thead>
+                                <tr>
+                                    <th><a href="" ng-click="sort('ShortName')">Short Name</a></th>
+                                    <th><a href="" ng-click="sort('Name')">Name</a></th>
+                                    <th><a href="" ng-click="sort('Address')">Address</a></th>
+                                    <th><a href="" ng-click="sort('Email')">Email</a></th>
+                                    <th><a href="" ng-click="sort('Phone')">Phone</a></th>
+                                    <th><a href="" ng-click="sort('Mobile')">Mobile</a></th>
+                                    <th><a href="" ng-click="sort('JoinDate')">Join</a></th>
+                                    <th><a href="" ng-click="sort('ExpireDate')">Expire</a></th>
+                                    <th><a href="" ng-click="sort('IsActive')">IsActive</a></th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="inst in insts">
+                                    <td>{{inst.ShortName}}</td>
+                                    <td>{{inst.Name}}</td>
+                                    <td>{{inst.Address}}</td>
+                                    <td>{{inst.Email}}</td>
+                                    <td>{{inst.Phone}}</td>
+                                    <td>{{inst.Mobile}}</td>
+                                    <td>{{inst.JoinDate.slice(6, -2) | date : "dd-MM-yyyy"}}</td>
+                                    <td>{{inst.ExpireDate.slice(6, -2) | date : "dd-MM-yyyy"}}</td>
+
+                                    <td>
+                                        <label style="margin-right:15px; padding-top:5px;">
+                                            <input class="icheckbox_square-red" type="checkbox" name="IsActive" ng-model="inst.IsActive" disabled/>
+                                        </label>
+                                    </td>
+                                    <td>
+                                        <input type="button" class="btn btn-info" value="{{btnEditText}}" ng-click="redirect(inst.Id)" />
+                                        <input type="button" class="btn btn-danger" value="{{btnDeleteText}}" ng-click="removeData(inst.Id)" />
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                @Html.Partial("_PagingPartial")
+            </div>
+        </div>
+    </div>
+</div>
+
+@section scripts {
+    <script src="~/Areas/SuperAdmin/Scripts/Controllers/Institutes.js"></script>
+}

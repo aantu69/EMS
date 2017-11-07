@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Create Format";
+}
+
+<div class="col-md-6" ng-app="app" ng-controller="AddCtlr">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Format Creation</h3>
+        </div>
+        <form class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="txtName" class="col-sm-3 control-label">Name</label>
+
+                    <div class="col-sm-9">
+                        <input type="text" class="form-control" id="txtName" placeholder="Name" ng-model="Name">
+                    </div>
+                </div>
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink("Cancel", "Index", new { controller = "ClassFormats" }, new { @class = "btn btn-default" })
+                <input type="button" class="btn btn-info pull-right" value="Save" ng-click="addData()" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Areas/SuperAdmin/Scripts/Controllers/ClassFormats.js")
+}

@@ -64,15 +64,6 @@ namespace EMS.Models
         public bool RememberMe { get; set; }
     }
 
-    //public class RoleViewModel
-    //{
-    //    public string Id { get; set; }
-    //    [Required]
-    //    [Display(Name = "Role Name")]
-    //    public string Name { get; set; }
-    //    public ICollection<Menu> Menus { get; set; }
-    //}
-
     public class RoleViewModel
     {
         public string Id { get; set; }
@@ -80,6 +71,7 @@ namespace EMS.Models
         [Display(Name = "Role Name")]
         public string Name { get; set; }
         public string Description { get; set; }
+        //public int InstId { get; set; }
     }
 
     public class UserRolesViewModel
@@ -144,7 +136,7 @@ namespace EMS.Models
         public string ConfirmPassword { get; set; }
 
         [Display(Name = "Institute Name")]
-        public int InstituteId { get; set; }
+        public int InstId { get; set; }
     }
 
     public class ResetPasswordViewModel

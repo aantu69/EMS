@@ -7,7 +7,8 @@
  * MIT Licensed
  */
 
-(function($) {
+(function ($) {
+    alert("Hello");
 
   // Cached vars
   var _iCheck = 'iCheck',

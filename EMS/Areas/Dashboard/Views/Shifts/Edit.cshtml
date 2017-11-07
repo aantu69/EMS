@@ -1,0 +1,45 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="col-md-6" ng-controller="EditCtlr">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Shift Editing</h3>
+        </div>
+        <form class="form-horizontal">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="ddlMedium" class="col-sm-2 control-label">Medium</label>
+
+                    <div class="col-sm-7">
+                        <label ng-repeat="medium in mediums">
+                            <input type="radio" icheck ng-model="MediumId" value="{{medium.Id}}" ng-checked="MediumId" ng-change="toggleSelection(medium.Id)" name="rbtnMedium" class="form-control" skin="square" color="red" />
+                            {{medium.MediumName}}
+                        </label>
+                        @*<select class="form-control" ng-model="MediumId" id="ddlMedium">
+                            <option value="">Select Medium</option>
+                            <option ng-repeat="medium in mediums" value="{{medium.Id}}">{{medium.MediumName}}</option>
+                        </select>*@
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtName" class="col-sm-2 control-label">Shift Name</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" class="form-control" id="txtName" placeholder="Shift Name" ng-model="ShiftName">
+                    </div>
+                </div>
+                
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink("Cancel", "Index", new { controller = "Shifts" }, new { @class = "btn btn-default" })
+                <input type="button" class="btn btn-info pull-right" value="{{btnUpdateText}}" ng-click="updateData()" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Areas/Dashboard/Scripts/Controllers/Shifts.js")
+}

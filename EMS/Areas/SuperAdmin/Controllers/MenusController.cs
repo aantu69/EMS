@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace EMS.Areas.SuperAdmin.Controllers
 {
+    [DynamicRoleAuthorize]
     public class MenusController : Controller
     {
 
@@ -66,7 +67,7 @@ namespace EMS.Areas.SuperAdmin.Controllers
                     break;
 
                 default:
-                    menus = isAsc ? menus.OrderBy(e => e.ID).ToList() : menus.OrderByDescending(e => e.ID).ToList();
+                    menus = isAsc ? menus.OrderBy(e => e.Id).ToList() : menus.OrderByDescending(e => e.Id).ToList();
                     break;
             }
 
@@ -84,12 +85,12 @@ namespace EMS.Areas.SuperAdmin.Controllers
 
         }
 
-        public JsonResult GetData(int? id)
+        public JsonResult GetData(int? Id)
         {
-            if (id.HasValue && id.Value > 0)
+            if (Id.HasValue && Id.Value > 0)
             {
                 ApplicationDbContext db = new ApplicationDbContext();
-                var result = db.Menus.Where(e => e.ID == id.Value).SingleOrDefault();
+                var result = db.Menus.Where(e => e.Id == Id.Value).SingleOrDefault();
                 if (result != null)
                 {
                     return Json(result, JsonRequestBehavior.AllowGet);
@@ -114,7 +115,7 @@ namespace EMS.Areas.SuperAdmin.Controllers
                 newMenu.ActionName = menu.ActionName;
                 newMenu.IsActive = menu.IsActive;
                 newMenu.Order = menu.Order;
-                newMenu.ModifyID = CommonFunction.CurrentUserId();
+                newMenu.ModifyId = CommonFunction.CurrentUserId();
                 newMenu.ModifyTime = DateTime.Now;
                 db.Menus.Add(newMenu);
                 db.SaveChanges();
@@ -137,22 +138,22 @@ namespace EMS.Areas.SuperAdmin.Controllers
                 try
                 {
 
-                    if (menu != null && menu.ID > 0)
+                    if (menu != null && menu.Id > 0)
                     {
-                        var CurrentMenu = db.Menus.Where(e => e.ID == menu.ID).SingleOrDefault();
+                        var CurrentMenu = db.Menus.Where(e => e.Id == menu.Id).SingleOrDefault();
                         if (CurrentMenu != null)
                         {
-                            var UpdateMenu = db.Menus.Where(e => e.ID != menu.ID && e.Name == menu.Name && e.ControllerName == menu.ControllerName && e.ActionName == menu.ActionName).FirstOrDefault();
+                            var UpdateMenu = db.Menus.Where(e => e.Id != menu.Id && e.Name == menu.Name && e.ControllerName == menu.ControllerName && e.ActionName == menu.ActionName).FirstOrDefault();
                             if (UpdateMenu == null)
                             {
-                                CurrentMenu.ID = menu.ID;
+                                CurrentMenu.Id = menu.Id;
                                 CurrentMenu.Name = menu.Name;
                                 CurrentMenu.Area = menu.Area;
                                 CurrentMenu.ControllerName = menu.ControllerName;
                                 CurrentMenu.ActionName = menu.ActionName;
                                 CurrentMenu.IsActive = menu.IsActive;
                                 CurrentMenu.Order = menu.Order;
-                                CurrentMenu.ModifyID = CommonFunction.CurrentUserId();
+                                CurrentMenu.ModifyId = CommonFunction.CurrentUserId();
                                 CurrentMenu.ModifyTime = DateTime.Now;
                                 db.Menus.Attach(CurrentMenu);
                                 db.Entry(CurrentMenu).State = EntityState.Modified;
@@ -180,17 +181,17 @@ namespace EMS.Areas.SuperAdmin.Controllers
             return Json(retn, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult DeleteData(int id)
+        public JsonResult DeleteData(int Id)
         {
             string retn = String.Empty;
-            if (!String.IsNullOrEmpty(id.ToString()))
+            if (!String.IsNullOrEmpty(Id.ToString()))
             {
                 //using (EMSContext db = new EMSContext())
                 using (ApplicationDbContext db = new ApplicationDbContext())
                 {
                     try
                     {
-                        var menu = db.Menus.Where(e => e.ID == id).FirstOrDefault();
+                        var menu = db.Menus.Where(e => e.Id == Id).FirstOrDefault();
                         if (menu != null)
                         {
                             db.Menus.Remove(menu);

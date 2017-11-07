@@ -183,6 +183,11 @@ app.controller('EditCtlr', ['$scope', '$http', 'EMSService', function ($scope, $
     $scope.showMessage = false;
     EMSService.getData().then(function (result) {
         $scope.Name = result.data.Name;
+        $scope.Area = result.data.Area;
+        $scope.ControllerName = result.data.ControllerName;
+        $scope.ActionName = result.data.ActionName;
+        $scope.IsActive = result.data.IsActive;
+        $scope.Order = result.data.Order;
         //alert(result.data.Name);
         //alert(result.data.toSource());
     }, function (error) {
@@ -193,7 +198,12 @@ app.controller('EditCtlr', ['$scope', '$http', 'EMSService', function ($scope, $
     $scope.updateData = function () {
         $scope.btnUpdateText = "Updating...";
         var menu = {};
-        menu["Name"] = $scope.Name;
+        menu.Name = $scope.Name;
+        menu.Area = $scope.Area;
+        menu.ControllerName = $scope.ControllerName;
+        menu.ActionName = $scope.ActionName;
+        menu.IsActive = $scope.IsActive;
+        menu.Order = $scope.Order;
         EMSService.updateData(menu);
         $scope.btnUpdateText = "Update";
     };

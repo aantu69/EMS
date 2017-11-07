@@ -43,13 +43,26 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="menu in menus">
-                                    <td>{{menu.ControllerName}}</td>
+                                    <td>
+                                        <label style="margin-right:15px; padding-top:5px;">
+                                            <input class="icheckbox_square-red" id="{{menu.Id}}" type="checkbox" value="{{menu.Id}}" ng-checked="selectedMenus.indexOf(menu.Id) > -1" ng-click="toggleSelection(menu.Id)" />
+                                            {{menu.ControllerName}}
+                                        </label>
+                                    </td>
                                     <td>{{menu.ActionName}}</td>
                                 </tr>
                             </tbody>
                         </table>
                     </div>
                 </div>
+
+                @*<div class="form-group">
+                    <label class="col-sm-2 control-label">Selected Menus</label>
+                    <div class="col-sm-7" ng-repeat="name in selectedMenus">
+                        {{name}}
+                    </div>
+                </div>*@
+
 
             </div>
             <div class="box-footer">

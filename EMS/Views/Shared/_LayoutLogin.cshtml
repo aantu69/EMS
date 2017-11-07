@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+
+    <!-- Bootstrap 3.3.7 -->
+    @Styles.Render("~/bootstrap/css")
+    <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto:400,300,100,500'>
+    <link rel='stylesheet prefetch' href='https://www.google.com/fonts#UsePlace:use/Collection:Roboto+Slab:400,700,300,100'>
+    <!-- Login -->
+    @Styles.Render("~/login/css")
+    <link rel="stylesheet" href="css/style.css">
+
+
+</head>
+
+<body>
+    @RenderBody()
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/login")
+
+    @RenderSection("scripts", required: false)
+</body>
+</html>

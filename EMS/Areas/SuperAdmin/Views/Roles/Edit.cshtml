@@ -30,6 +30,31 @@
                         <small style="color:red; display:block; text-align:center;">Enter Description</small>
                     </div>
                 </div>
+
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Permission</label>
+                    <div class="col-sm-7">
+                        <table class="table table-bordered table-hover dataTable ">
+                            <thead>
+                                <tr>
+                                    <th>Controller</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="menu in menus">
+                                    <td>
+                                        <label style="margin-right:15px; padding-top:5px;">
+                                            <input class="icheckbox_square-red" id="{{menu.Id}}" type="checkbox" value="{{menu.Id}}" ng-checked="selectedMenus.indexOf(menu.Id) > -1" ng-click="toggleSelection(menu.Id)" />
+                                            {{menu.ControllerName}}
+                                        </label>
+                                    </td>
+                                    <td>{{menu.ActionName}}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
             <div class="box-footer">
                 @Html.ActionLink("Cancel", "Index", new { controller = "Roles" }, new { @class = "btn btn-default" })

@@ -41,3 +41,12 @@ input[type="checkbox"], input[type="radio"] {
     margin-top: 1px\9;
     line-height: normal;
 }
+
+label{
+    padding-top: 7px;
+    margin-right: 5px;
+}
+
+select.select2{
+    width: 100% !important;
+}

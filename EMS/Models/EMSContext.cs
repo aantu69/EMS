@@ -19,12 +19,23 @@ namespace EMS.Models
         {
         }
 
-        public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.Shift> Shifts { get; set; }
-
-        public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.Medium> Mediums { get; set; }
-
         public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.Employee> Employees { get; set; }
+        public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.Institute> Institutes { get; set; }
+        public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.ClassFormat> ClassFormats { get; set; }
+        public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.Class> Classes { get; set; }
 
-        //public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.Menu> Menus { get; set; }
+
+        public System.Data.Entity.DbSet<EMS.Areas.Dashboard.Models.Shift> Shifts { get; set; }
+        public System.Data.Entity.DbSet<EMS.Areas.Dashboard.Models.Medium> Mediums { get; set; }
+        public System.Data.Entity.DbSet<EMS.Areas.Dashboard.Models.ShiftMedium> ShiftsMediums { get; set; }
+
+
+        public System.Data.Entity.DbSet<EMS.Areas.Dashboard.Models.Test> Tests { get; set; }
+
+        public System.Data.Entity.DbSet<EMS.Models.Country> Countries { get; set; }
+
+        public System.Data.Entity.DbSet<EMS.Models.State> States { get; set; }
+
+        public System.Data.Entity.DbSet<EMS.Areas.SuperAdmin.Models.UploadedFile> UploadedFiles { get; set; }
     }
 }

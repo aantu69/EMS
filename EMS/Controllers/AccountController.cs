@@ -9,6 +9,7 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using EMS.Models;
+using EMS.Logic;
 
 namespace EMS.Controllers
 {
@@ -79,6 +80,7 @@ namespace EMS.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    //Session["CurrentUserInstituteId"] = CommonFunction.CurrentUserInstituteId();
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");

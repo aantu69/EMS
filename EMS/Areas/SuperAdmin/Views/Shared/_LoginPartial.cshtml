@@ -1,27 +1,28 @@
-﻿@using EMS.Models;
-@using Microsoft.AspNet.Identity;
-@using Microsoft.AspNet.Identity.EntityFramework;
-<div class="user-info">
-    @if (Request.IsAuthenticated)
-    {
-        ApplicationDbContext context = new ApplicationDbContext();
-        var currentUserId = User.Identity.GetUserId();
-        var userMgr = new UserManager<ApplicationUser>(new UserStore<ApplicationUser>(context));
-        var currentUser = userMgr.FindById(currentUserId);
-        using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
+﻿@using Microsoft.AspNet.Identity
+<ul class="nav navbar-nav">
+@if (Request.IsAuthenticated)
+{
+    <li class="dropdown user user-menu">
+        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+            <img src="~/images/user2-160x160.jpg" class="user-image" alt="User Image">
+            <span class="hidden-xs">@User.Identity.GetUserName()</span>
+        </a>
+    </li>
+    <li class="dropdown user-menu">
+        @using (Html.BeginForm("LogOff", "Account", new { area = "" }, FormMethod.Post, new { id = "logoutForm" }))
         {
             @Html.AntiForgeryToken()
-            <div class="image">
-                <img src="/images/user.png" width="48" height="48" alt="User" />
-            </div>
-            <div class="info-container">
-                <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    @currentUser.FirstName
-                </div>
-                <div class="email">@currentUser.Email</div>
-                <a href="javascript:document.getElementById('logoutForm').submit()">Log off</a>
-            </div>
-        }
 
-    }
-</div>
+            <a href="javascript:document.getElementById('logoutForm').submit()">Logout</a>
+        }
+    </li>
+}
+else
+{
+    <li class="dropdown user-menu">
+        @Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })
+    </li>
+}
+</ul>
+
+

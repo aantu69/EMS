@@ -1,0 +1,121 @@
+﻿@{
+    ViewBag.Title = "Edit";
+}
+
+<div class="col-md-6" ng-controller="EditCtlr">
+    <div class="box box-info">
+        <div class="box-header with-border">
+            <h3 class="box-title">Institute Editing</h3>
+        </div>
+        <form class="form-horizontal" name="menuForm">
+            <div class="box-body">
+                <div class="form-group">
+                    <label for="txtName" class="col-sm-2 control-label">Name</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="Name" ng-required="true" class="form-control" id="txtName" placeholder="Name" ng-model="Name">
+                    </div>
+                    <div class="col-sm-3" ng-show="form.Name.$dirty && form.Name.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Name</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtShortName" class="col-sm-2 control-label">Short Name</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="ShortName" ng-required="true" class="form-control" id="txtShortName" placeholder="ShortName" ng-model="ShortName">
+                    </div>
+                    <div class="col-sm-3" ng-show="form.ShortName.$dirty && form.ShortName.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Short Name</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtAddress" class="col-sm-2 control-label">Address</label>
+
+                    <div class="col-sm-7">
+                        <textarea type="text" name="ControllerName" ng-required="true" class="form-control" id="txtAddress" placeholder="Address" ng-model="Address"></textarea>
+                    </div>
+                    <div class="col-sm-3" ng-show="form.Address.$dirty && form.Address.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Address</small>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtEmail" class="col-sm-2 control-label">Email</label>
+
+                    <div class="col-sm-7">
+                        <input type="email" name="Email" ng-required="true" class="form-control" id="txtEmail" placeholder="Email" ng-model="Email">
+                    </div>
+                    <div class="col-sm-3" ng-show="form.Email.$dirty && form.Email.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Email</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtPhone" class="col-sm-2 control-label">Phone</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="Phone" ng-required="true" class="form-control" id="txtPhone" placeholder="Phone" ng-model="Phone">
+                    </div>
+                    <div class="col-sm-3" ng-show="form.Phone.$dirty && form.Phone.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Phone</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtMobile" class="col-sm-2 control-label">Mobile</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="Mobile" ng-required="true" class="form-control" id="txtMobile" placeholder="Mobile" ng-model="Mobile">
+                    </div>
+                    <div class="col-sm-3" ng-show="form.Mobile.$dirty && form.Mobile.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Mobile</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtContact" class="col-sm-2 control-label">Contact Person</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" name="Contact" ng-required="true" class="form-control" id="txtContact" placeholder="Contact" ng-model="Contact">
+                    </div>
+                    <div class="col-sm-3" ng-show="form.Contact.$dirty && form.Contact.$invalid">
+                        <small style="color:red; display:block; text-align:center;">Enter Contact Person</small>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="chkIsActive" class="col-sm-2 control-label">IsActive</label>
+
+                    <div class="col-sm-7">
+                        <label style="margin-right:15px; padding-top:5px;">
+                            <input icheck id="chkIsActive" type="checkbox" name="IsActive" ng-model="IsActive" />
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="txtJoinDate" class="col-sm-2 control-label">Join Date</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" id="txtJoinDate" datepicker ng-model="JoinDate" class="form-control" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="txtExpireDate" class="col-sm-2 control-label">Expire Date</label>
+
+                    <div class="col-sm-7">
+                        <input type="text" id="txtExpireDate" datepicker ng-model="ExpireDate" class="form-control" />
+                    </div>
+                </div>
+
+            </div>
+            <div class="box-footer">
+                @Html.ActionLink("Cancel", "Index", new { controller = "Institutes" }, new { @class = "btn btn-default" })
+                <input type="button" class="btn btn-info pull-right" value="{{btnUpdateText}}" ng-click="updateData()" />
+            </div>
+        </form>
+    </div>
+</div>
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/Areas/SuperAdmin/Scripts/Controllers/Institutes.js")
+}
